@@ -6,16 +6,17 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:id="@+id/imageView"
+        android:id="@+id/senderAvatar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/avatar"/>
 
 
         <TextView
+            android:id="@+id/senderText"
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/imageView"
-            android:layout_toStartOf="@+id/imageView"
+            android:layout_toLeftOf="@+id/senderAvatar"
+            android:layout_toStartOf="@+id/senderAvatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

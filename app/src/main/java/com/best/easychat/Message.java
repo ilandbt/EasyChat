@@ -3,22 +3,22 @@ package com.best.easychat;
 /**
  * Created by EthosIlan on 2/16/15.
  */
-public class Message {
-
-    public enum MessageType {text, typing}
-
-
-    private MessageType type;
+public class Message extends Bubble{
 
     private String text;
-    private Boolean isMe;
+    private String id;
 
-    public Message(String text, Boolean isMe){
+    public Message(String text, String id){
+        super(BubbleType.text);
         this.text = text;
-        this.isMe = isMe;
+        this.id = id;
     }
 
-    public MessageType getType(){
-        return this.type;
+    public String getText(){
+        return this.text;
+    }
+
+    public String getId(){
+        return this.id;
     }
 }

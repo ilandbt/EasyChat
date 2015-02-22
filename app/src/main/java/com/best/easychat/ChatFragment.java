@@ -40,24 +40,29 @@ public class ChatFragment extends android.support.v4.app.Fragment{
 
         //set chat list view adapter
         //TODO: add adapter to chatListView
-        ArrayList<Message> list = new ArrayList<>();
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
-        list.add(new Message("", true));
+//        ArrayList<Message> list = new ArrayList<>();
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
+//        list.add(new Message("", true));
 
 
-        ChatAdapter adapter = new ChatAdapter(getActivity(), list);
+        ChatAdapter adapter = new ChatAdapter(getActivity(), "1");
         chatListView.setAdapter(adapter);
+
+        adapter.addNewMessage(new Message("Hello", "1"), false);
+        adapter.addNewMessage(new Message("what is up", "1"), false);
+        adapter.addNewMessage(new Message("how are you", "1"), false);
+        adapter.addNewMessage(new Message("how are you doing", "1"), true);
 
         //TODO: add abstruct methos and class
         //init(savedInstanceState)
