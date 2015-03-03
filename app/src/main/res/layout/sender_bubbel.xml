@@ -3,29 +3,17 @@
     android:layout_height="match_parent" >
 
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/senderAvatar"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/avatar"/>
-
-
         <TextView
             android:id="@+id/senderText"
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/senderAvatar"
-            android:layout_toStartOf="@+id/senderAvatar"
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text=" help me hep me help me help me help me"
-            android:background="@drawable/speech_bubble_green"
+            android:background="@drawable/outgoing_bubble"
             android:gravity="center"
-            android:paddingTop="3dp"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="12dp"/>
+            android:paddingRight="12dp"/>
 </RelativeLayout>

@@ -3,4 +3,27 @@
     android:layout_height="match_parent" >
 
 
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/senderAvatar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/avatar"
+        android:layout_marginBottom="10dp"/>
+
+
+    <TextView
+        android:id="@+id/reciverText"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/senderAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text=" help me hep me help me help me help me"
+        android:background="@drawable/incoming_bubble"
+        android:gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="8dp"/>
 </RelativeLayout>

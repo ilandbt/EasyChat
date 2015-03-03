@@ -8,8 +8,8 @@ public class Message extends Bubble{
     private String text;
     private String id;
 
-    public Message(String text, String id){
-        super(BubbleType.text);
+    public Message(String text, boolean isIncoming){
+        super(isIncoming? BubbleType.textIn: BubbleType.textOut);
         this.text = text;
         this.id = id;
     }

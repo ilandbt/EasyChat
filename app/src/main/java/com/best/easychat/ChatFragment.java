@@ -1,12 +1,16 @@
 package com.best.easychat;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,7 +24,7 @@ public class ChatFragment extends android.support.v4.app.Fragment{
     private ViewGroup rootView;
     private ChatListView chatListView;
     private EditText inputEditText;
-    private Button inputSendButton;
+    private ImageButton inputSendButton;
 
     public ChatFragment() { }
 
@@ -33,36 +37,39 @@ public class ChatFragment extends android.support.v4.app.Fragment{
 
         chatListView = (ChatListView) rootView.findViewById(R.id.chatListView);
         inputEditText = (EditText) rootView.findViewById(R.id.inputEditText);
-        inputSendButton = (Button) rootView.findViewById(R.id.inputSendButton);
+        inputEditText.addTextChangedListener(imputTextWatch);
+
+        inputSendButton = (ImageButton) rootView.findViewById(R.id.inputSendButton);
 
         //set click listener
         inputSendButton.setOnClickListener(inputSendButtonListener);
 
         //set chat list view adapter
-        //TODO: add adapter to chatListView
-//        ArrayList<Message> list = new ArrayList<>();
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-//        list.add(new Message("", true));
-
-
-        ChatAdapter adapter = new ChatAdapter(getActivity(), "1");
+        ChatAdapter adapter = new ChatAdapter(getActivity());
         chatListView.setAdapter(adapter);
+        chatListView.addLoadMore();
+        chatListView.setOnLoadMoreClickListener(new ChatListView.OnLoadMoreClickListener() {
+            @Override
+            public void OnClick(View view) {
+                Toast.makeText(getActivity(), "load more clicked", Toast.LENGTH_SHORT).show();
+                chatListView.startProgress();
+            }
+        });
 
-        adapter.addNewMessage(new Message("Hello", "1"), false);
-        adapter.addNewMessage(new Message("what is up", "1"), false);
-        adapter.addNewMessage(new Message("how are you", "1"), false);
-        adapter.addNewMessage(new Message("how are you doing", "1"), true);
+        adapter.addNewMessage(new Message("ou1", true), false);
+        adapter.addNewMessage(new Message("ou2", true), false);
+        adapter.addNewMessage(new Message("in1", false), false);
+        adapter.addNewMessage(new Message("out3", true), false);
+        adapter.addNewMessage(new Message("in2", false), false);
+        adapter.addNewMessage(new Message("in3", false), false);
+        adapter.addTimeStamp(new TimeStamp("Monday 20:33"));
+        adapter.addNewMessage(new Message("ou4", true), false);
+        adapter.addNewMessage(new Message("ou5", true), false);
+        adapter.addNewMessage(new Message("in4", false), false);
+        adapter.addNewMessage(new Message("out6", true), false);
+        adapter.addTimeStamp(new TimeStamp("Shabat 10:14"));
+        adapter.addNewMessage(new Message("in5", false), false);
+        adapter.addNewMessage(new Message("in6", false), true);
 
         //TODO: add abstruct methos and class
         //init(savedInstanceState)
@@ -74,6 +81,23 @@ public class ChatFragment extends android.support.v4.app.Fragment{
         @Override
         public void onClick(View v) {
             Log.d(TAG, "inputSendButtonListener");
+        }
+    };
+
+    private TextWatcher imputTextWatch = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
         }
     };
 

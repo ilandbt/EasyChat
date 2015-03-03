@@ -15,21 +15,23 @@ import java.util.ArrayList;
  */
 public class ChatAdapter extends BaseAdapter {
 
+    private final String TAG = getClass().getSimpleName();
+
     private Context context;
     private ArrayList<Bubble> messageList;
-
 
     //
     private boolean hasInComingAvatar = true;
     private boolean hasOutGoingAvatar = true;
     private boolean hasIsTyping = false;
+    private boolean hasLoadMore = false;
 
-    private String senderId;
+    //private String senderId;
 
-    public ChatAdapter(Context context, String senderId){
+    public ChatAdapter(Context context){
         this.context = context;
         this.messageList = new ArrayList<>();
-        this.senderId = senderId;
+        //this.senderId = senderId;
     }
 
     @Override
@@ -59,15 +61,12 @@ public class ChatAdapter extends BaseAdapter {
             //row = inflater.inflate(R.layout.sender_bubbel, parent, false);
 
             switch (bubble.getType()) {
-                case text:
+                case textIn:
+                    row = inflater.inflate(R.layout.sender_bubbel, parent, false);
+                    break;
+                case textOut:
                     Message message = (Message)bubble;
-                    Log.e("ChatAdapter", "senderId: " + this.senderId + "message.getId(): " + message.getId());
-                    if (message.getId() == this.senderId) {
-                        Log.e("ChatAdapter", "in");
-                        row = inflater.inflate(R.layout.sender_bubbel, parent, false);
-                    } else {
-                        row = inflater.inflate(R.layout.reciver_bubble, parent, false);
-                    }
+                    row = inflater.inflate(R.layout.reciver_bubble, parent, false);
                     break;
                 case typing:
                     //row = inflater.inflate(R.layout.sender_bubbel, parent, false);
@@ -75,22 +74,28 @@ public class ChatAdapter extends BaseAdapter {
                 case newMessage:
                     //row = inflater.inflate(R.layout.sender_bubbel, parent, false);
                     break;
+                case timeStamp:
+                    row = inflater.inflate(R.layout.chat_time_stamp, parent, false);
+                    break;
             }
 
         }
 
-        Log.e("ChatAdapter", "bubble.getType(): " +bubble.getType());
         switch (bubble.getType()) {
-            case text:
-                Message message = (Message)bubble;
-                if (message.getId() == this.senderId) {
-                    //TODO: handle outgoing
-
-                    TextView text = (TextView) row.findViewById(R.id.senderText);
-                    text.setText(message.getText());
-                } else {
-                    //TODO: handle incoming
-                }
+            case textIn:
+                Message inMessage = (Message)bubble;
+                TextView text = (TextView) row.findViewById(R.id.senderText);
+                text.setText(inMessage.getText());
+                break;
+            case textOut:
+                Message outMessage = (Message)bubble;
+                text = (TextView) row.findViewById(R.id.reciverText);
+                text.setText(outMessage.getText());
+                break;
+            case timeStamp:
+                TimeStamp time = (TimeStamp)bubble;
+                TextView timeText = (TextView) row.findViewById(R.id.timeStamp);
+                timeText.setText(time.getTime());
                 break;
             case typing:
                 //TODO: handle isT yping
@@ -123,50 +128,50 @@ public class ChatAdapter extends BaseAdapter {
 
     }
 
-    public void addIsTyping(){
-        this.messageList.add(new IsTyping());
-        notifyDataSetChanged();
-        hasIsTyping = true;
-    }
+//    public void addIsTyping(){
+//        this.messageList.add(new IsTyping());
+//        notifyDataSetChanged();
+//        hasIsTyping = true;
+//    }
 
-    public void removeIsTyping(boolean shouldNotify){
-        int lastBubble = this.messageList.size()-1;
-        if (lastBubble > 0) {
-            Bubble bubble = this.messageList.get(lastBubble);
+//    public void removeIsTyping(boolean shouldNotify){
+//        int lastBubble = this.messageList.size()-1;
+//        if (lastBubble > 0) {
+//            Bubble bubble = this.messageList.get(lastBubble);
+//
+//            if (bubble.getType() == Bubble.BubbleType.typing){
+//                this.messageList.remove(lastBubble);
+//            }
+//
+//            if (shouldNotify) {
+//                notifyDataSetChanged();
+//            }
+//        }
+//        hasIsTyping = false;
+//    }
 
-            if (bubble.getType() == Bubble.BubbleType.typing){
-                this.messageList.remove(lastBubble);
-            }
+//    public void addNewMessagesIndicator(){
+//        this.messageList.add(new NewMessageIndicator());
+//        notifyDataSetChanged();
+//    }
 
-            if (shouldNotify) {
-                notifyDataSetChanged();
-            }
-        }
-        hasIsTyping = false;
-    }
-
-    public void addNewMessagesIndicator(){
-        this.messageList.add(new NewMessageIndicator());
-        notifyDataSetChanged();
-    }
-
-    public void removeNewMessagesIndicator(){
-        Bubble bubble;
-        for (int i = this.messageList.size()-1; i >= 0; i--) {
-            bubble = this.messageList.get(i);
-            if (bubble.getType() == Bubble.BubbleType.newMessage){
-                this.messageList.remove(i);
-                break;
-            }
-        }
-        notifyDataSetChanged();
-    }
+//    public void removeNewMessagesIndicator(){
+//        Bubble bubble;
+//        for (int i = this.messageList.size()-1; i >= 0; i--) {
+//            bubble = this.messageList.get(i);
+//            if (bubble.getType() == Bubble.BubbleType.newMessage){
+//                this.messageList.remove(i);
+//                break;
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
 
     public void addNewMessage(Message message, boolean shouldNotify){
         if (hasIsTyping){
-            removeIsTyping(false);
+            //removeIsTyping(false);
             this.messageList.add(message);
-            addIsTyping();
+            //addIsTyping();
         } else {
             this.messageList.add(message);
         }
@@ -181,9 +186,13 @@ public class ChatAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addTimeStamp(TimeStamp time){
+        this.messageList.add(time);
+    }
+
     @Override
     public int getViewTypeCount() {
-        return 4;
+        return 6;
     }
 
     @Override

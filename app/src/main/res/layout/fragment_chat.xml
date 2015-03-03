@@ -2,6 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.best.chatadapter.ChatFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_backgroud"
+        android:scaleType="fitXY"/>
+
 
     <com.best.easychat.ChatListView
         android:padding="5dp"
@@ -15,26 +21,31 @@
         android:listSelector="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_height="50dp"
-        android:background="#f00"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="2dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="#ccc">
 
         <EditText
             android:id="@+id/inputEditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="6"/>
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/inputSendButton"
+            android:layout_marginRight="10dp"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/inputSendButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-    </LinearLayout>
+            android:background="@drawable/chat_send_button"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 </RelativeLayout>

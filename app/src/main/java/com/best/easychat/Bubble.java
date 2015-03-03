@@ -7,7 +7,7 @@ public class Bubble {
 
     public enum BubbleType {
         //text, typing, newMessage
-        text(0), typing(1), newMessage(2);
+        textOut(0), textIn(1), typing(2), newMessage(3), loadMore(4), timeStamp(5);
 
         private final int value;
 
